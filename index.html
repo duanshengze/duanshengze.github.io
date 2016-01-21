@@ -220,11 +220,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-Android Xutils框架" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-ExoPalyer开发指南" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/01/20/Android Xutils框架/" class="article-date">
-      <time datetime="2016-01-20T09:01:10.507Z" itemprop="datePublished">2016-01-20</time>
+      <a href="/2016/01/21/ExoPalyer开发指南/" class="article-date">
+      <time datetime="2016-01-21T05:33:20.719Z" itemprop="datePublished">2016-01-21</time>
 </a>
     </div>
   
@@ -236,206 +236,20 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <!DOCTYPE html><html><head><title>Android Xutils框架</title><meta charset="utf-8"><link href="https://dn-maxiang.qbox.me/res-min/themes/marxico.css" rel="stylesheet"><style>
-.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
-
-</style></head><body><div id="preview-contents" class="note-content">
-                        <div id="wmd-preview" class="preview-content"></div>
-                    <div id="wmd-preview-section-1" class="wmd-preview-section preview-content">
-
-<div><div class="toc"><div class="toc">
+        <p>[TOC]</p>
+<p>#ExoPalyer开发指南<br>播放视频和音乐是在Android设备上深受欢迎的活动。Android框架提供的MediaPlayer ，作为播放媒体用最少的代码的快速解决方案。它还提供了低层次的媒体的API ，如<code>MediaCodec</code> ，<code>AudioTrack</code>和<code>MediaDrm</code> ，可用于构建定制的媒体播放器解决方案。<br>ExoPlayer是建立在Android的低水平媒体的API之上的开源应用程序级的媒体播放器。该开源项目同时包含ExoPlayer库和演示程序：</p>
 <ul>
-<li><a href="#android-xutils框架">Android Xutils框架</a><ul>
-<li><a href="#xutils简介">xutils简介</a></li>
-<li><a href="#目前xutils主要有四大模块">目前xUtils主要有四大模块：</a><ul>
-<li><a href="#dbutils模块">DbUtils模块</a></li>
-<li><a href="#viewutils模块">ViewUtils模块</a></li>
-<li><a href="#httputils模块">HttpUtils模块</a></li>
-<li><a href="#bitmaputils模块">BitmapUtils模块</a></li>
-<li><a href="#viewutils使用方法">ViewUtils使用方法</a></li>
-<li><a href="#bitmaputils的使用方法">BitmapUtils的使用方法</a></li>
-<li><a href="#httputils使用方法">HttpUtils使用方法</a></li>
-<li><a href="#dbutils使用方法">DbUtils使用方法</a></li>
+<li><a href="https://github.com/google/ExoPlayer/tree/master/library" target="_blank" rel="external">ExoPlayer库 </a>—–该项目的这一部分包含了核心库类。</li>
+<li><a href="https://github.com/google/ExoPlayer/tree/master/demo" target="_blank" rel="external">Demo app</a> —–该项目的这一部分展示ExoPlayer的使用。</li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-
-</div><div id="wmd-preview-section-2" class="wmd-preview-section preview-content">
-
-<h1 id="android-xutils框架">Android Xutils框架</h1>
-
-<p><a href="http://blog.csdn.net/bangyiqing/article/details/39552163" target="_blank">摘录</a> <br>
-<a href="http://xutilsapi.oschina.mopaas.com/" target="_blank">xutils api文档</a></p>
-
-</div><div id="wmd-preview-section-3" class="wmd-preview-section preview-content">
-
-<h2 id="xutils简介">xutils简介</h2>
-
-<ul><li>xUtils包含了很多实用的Android工具。</li>
-<li>xUtils 源于Afinal框架，对Afinal进行了大量重构，使得xUtils支持大文件上传，更全面的http请求协议支持，拥有更加灵活的<a href="http://www.cnblogs.com/tonybinlj/archive/2008/01/10/1032728.html" target="_blank">ORM</a>（Object Relational Mapping）对象关系映射，更多的事件注解支持且不受混淆影响。</li>
-<li>xUitls最低兼容android 2.2 (api level 8)。</li>
+<p>本指南介绍了ExoPlayer库及其使用。在演示程序中提供了实例。该指南涉及使用ExoPlayer的利弊。它展示了如何使用ExoPlayer玩DASH，SmoothStreaming和HLS自适应流，以及格式，如MP3，M4A，MP4，WebM的，MPEG-TS和AAC。<br>它还讨论ExoPlayer事件，消息，定制和DRM的支持。</p>
+<p>##优点和缺点<br>ExoPlayer具有许多优于内置的MediaPlayer Android的优势：</p>
+<ul>
+<li>通过HTTP（DASH）和SmoothStreaming来支持动态自适应流媒体，HTTP（DASH）和SmoothStreaming都用到MediaPlayer的支持（它也支持HTTP实时流媒体（HLS），MP4，MP3，WebM，M4A，MPEG-TS和AAC）。</li>
+<li>支持先进的HLS功能，如正确处理#EXT-X-DISCONTINUITY标签。</li>
+<li>定制和扩展播放器以满足您的使用案例。 ExoPlayer 以此专门设计考虑，并且为实现自定义，允许许多组件被自定义替换。</li>
 </ul>
 
-</div><div id="wmd-preview-section-4" class="wmd-preview-section preview-content">
-
-<h2 id="目前xutils主要有四大模块">目前xUtils主要有四大模块：</h2>
-
-</div><div id="wmd-preview-section-5" class="wmd-preview-section preview-content">
-
-<h3 id="dbutils模块">DbUtils模块</h3>
-
-<blockquote>
-  <ul><li>android中的orm框架，一行代码就可以进行增删改查；</li>
-  <li>支持事务，默认关闭；</li>
-  <li>可通过注解自定义表名，列名，外键，唯一性约束，NOT NULL约束，CHECK约束等（需要混淆的时候请注解表名和列名）；</li>
-  <li>支持绑定外键，保存实体时外键关联实体自动保存或更新；</li>
-  <li>自动加载外键关联实体，支持延时加载； <br>
-  -支持链式表达查询，更直观的查询语义，参考下面的介绍或sample中的例子。</li>
-  </ul>
-</blockquote>
-
-</div><div id="wmd-preview-section-6" class="wmd-preview-section preview-content">
-
-<h3 id="viewutils模块">ViewUtils模块</h3>
-
-<blockquote>
-  <ul><li>android 中的<a href="http://www.cnblogs.com/devinzhang/archive/2012/01/27/2330098.html" target="_blank">IOC</a>(Inversion of Control)框架，完全注解方式就可以进行UI绑定和事件绑定；</li>
-  <li>新的事件绑定方式，使用混淆工具后仍能正常工作；</li>
-  <li>目前支持常用的11种事件绑定，参见<code>ViewCommonEventListener</code>类和<code>com.lidroid.xutils.view.annotation.event</code></li>
-  </ul>
-</blockquote>
-
-</div><div id="wmd-preview-section-7" class="wmd-preview-section preview-content">
-
-<h3 id="httputils模块">HttpUtils模块</h3>
-
-<blockquote>
-  <p>-支持同步，异步方式的请求</p>
-  
-  <ul><li>支持大文件上传，上传大文件不会oom（out of memory）</li>
-  <li>支持GET，POST，PUT，MOVE，COPY，DELETE，HEAD请求</li>
-  <li>下载支持301/302重定向，支持设置是否根据Content-Disposition重命名下载的文件；</li>
-  <li>返回文本内容的GET请求支持缓存，可设置默认过期时间和针对当前请求的过期时间。</li>
-  </ul>
-</blockquote>
-
-</div><div id="wmd-preview-section-8" class="wmd-preview-section preview-content">
-
-<h3 id="bitmaputils模块">BitmapUtils模块</h3>
-
-<blockquote>
-  <ul><li>加载bitmap的时候无需考虑bitmap加载过程中出现的oom和android容器快速滑动时候出现的图片错位等现象；</li>
-  <li>支持加载网络图片和本地图片；</li>
-  <li>内存管理使用lru算法，更好的管理bitmap内存； <br>
-  可配置线程加载线程数量，缓存大小，缓存路径，加载显示动画等</li>
-  </ul>
-</blockquote>
-
-<p><strong>注意</strong>： <br>
- <strong>使用xUtils快速开发框架需要以下权限</strong></p>
-
-</div><div id="wmd-preview-section-9" class="wmd-preview-section preview-content">
-
-<pre class="prettyprint with-line-number hljs-dark"><code class="hljs applescript"><span class="hljs-comment line-number">1.</span>&lt;uses-permission &gt;android:<span class="hljs-property">name</span>=<span class="hljs-string">"android.permission.INTERNET"</span> /&gt;  <br><span class="hljs-comment line-number">2.</span>&lt;uses-permission android:<span class="hljs-property">name</span>=<span class="hljs-string">"android.permission.WRITE_EXTERNAL_STORAGE"</span> /&gt; <br></code></pre>
-
-</div><div id="wmd-preview-section-10" class="wmd-preview-section preview-content">
-
-<h3 id="viewutils使用方法">ViewUtils使用方法</h3>
-
-<p>Android中的IOC（控制反转）框架，可以完全使用注解的方式来完成UI的绑定和事件绑定。 <br>
-下面对比注解绑定ID和findViewById之间的差别。 <br>
-绑定注解：</p>
-
-</div><div id="wmd-preview-section-11" class="wmd-preview-section preview-content">
-
-<pre class="prettyprint with-line-number hljs-dark"><code class="hljs css"><span class="hljs-comment line-number">1.</span> <span class="hljs-at_rule">@<span class="hljs-keyword">ViewInject(R.id.btn)</span>    <br><span class="hljs-comment line-number">2.</span> private Button btn</span>;    <br><span class="hljs-comment line-number">3.</span> <span class="hljs-at_rule">@<span class="hljs-keyword">ViewInject(R.id.img)</span>    <br><span class="hljs-comment line-number">4.</span> private ImageView img</span>;     <br><span class="hljs-comment line-number">5.</span> <span class="hljs-at_rule">@<span class="hljs-keyword">ViewInject(R.id.list)</span>    <br><span class="hljs-comment line-number">6.</span> private ListView list</span>;      <br><span class="hljs-comment line-number">7.</span> <span class="hljs-at_rule">@<span class="hljs-keyword">Override</span>    <br><span class="hljs-comment line-number">8.</span> protected void <span class="hljs-function">onCreate</span>(Bundle savedInstanceState) </span>{    <br><span class="hljs-comment line-number">9.</span>     <span class="hljs-tag">super</span><span class="hljs-class">.onCreate</span>(<span class="hljs-tag">savedInstanceState</span>);    <br><span class="hljs-comment line-number">10.</span>     <span class="hljs-tag">setContentView</span>(<span class="hljs-tag">R</span><span class="hljs-class">.layout</span><span class="hljs-class">.activity_second</span>);    <br><span class="hljs-comment line-number">11.</span>     <span class="hljs-tag">ViewUtils</span><span class="hljs-class">.inject</span>(<span class="hljs-tag">this</span>);<br><span class="hljs-comment line-number">12.</span>     }    <br></code></pre>
-
-<blockquote>
-  <p>注意： <br>
-  在使用注解绑定控件时，一定记得在onCreate中调用ViewUtils.inject(this);</p>
-</blockquote>
-
-<p>findViewById获得view</p>
-
-<pre class="prettyprint with-line-number hljs-dark"><code class="hljs roboconf"><span class="hljs-comment line-number">1.</span>@Override    <br><span class="hljs-comment line-number">2.</span><span class="hljs-component">protected void onCreate(Bundle savedInstanceState){    <br><span class="hljs-comment line-number">3.</span>    super<span class="hljs-string">.onCreate(savedInstanceState)</span>;    <br><span class="hljs-comment line-number">4.</span>    setContentView(R<span class="hljs-string">.layout.activity_second)</span>;       <br><span class="hljs-comment line-number">5.</span>    btn = (Button) findViewById(R<span class="hljs-string">.id.btn)</span>;    <br><span class="hljs-comment line-number">6.</span>    img = (ImageView) findViewById(R<span class="hljs-string">.id.img)</span>;    <br><span class="hljs-comment line-number">7.</span>    list = (ListView) findViewById(R<span class="hljs-string">.id.list)</span>;         <br><span class="hljs-comment line-number">8.</span>}</span> <br></code></pre>
-
-<p>下面我们对比Android中事件绑定的区别</p>
-
-</div><div id="wmd-preview-section-12" class="wmd-preview-section preview-content">
-
-<pre class="prettyprint with-line-number hljs-dark"><code class="hljs http"><span class="hljs-comment line-number">1.</span><br><span class="hljs-comment line-number">2.</span><br><span class="hljs-comment line-number">3.</span><span class="aspectj">Event(value={R.id.btn})  <br><span class="hljs-comment line-number">4.</span>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">clickMethod</span><span class="hljs-params">(View v)</span> </span>{    <br><span class="hljs-comment line-number">5.</span>     Toast.makeText(SecondActivity.<span class="hljs-keyword">this</span>, <span class="hljs-string">"you clicked button!"</span>, Toast.LENGTH_SHORT).show();    <br><span class="hljs-comment line-number">6.</span>    }    <br><span class="hljs-comment line-number">7.</span> <span class="hljs-annotation">@OnItemClick</span>(R.id.list)    <br><span class="hljs-comment line-number">8.</span>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">itemClick</span><span class="hljs-params">(AdapterView&lt;?&gt; parent, View view, <span class="hljs-keyword">int</span> position,<span class="hljs-keyword">long</span> id)</span> </span>{    <br><span class="hljs-comment line-number">9.</span>        Toast.makeText(SecondActivity.<span class="hljs-keyword">this</span>, <span class="hljs-string">"position---&gt;"</span> + position, Toast.LENGTH_SHORT).show();    <br><span class="hljs-comment line-number">10.</span>    }    </span><br></code></pre>
-
-</div><div id="wmd-preview-section-13" class="wmd-preview-section preview-content">
-
-<pre class="prettyprint with-line-number hljs-dark"><code class="hljs aspectj"><span class="hljs-comment line-number">1.</span>btn.setOnClickListener(<span class="hljs-keyword">this</span>);    <br><span class="hljs-comment line-number">2.</span>list.setOnItemClickListener(<span class="hljs-keyword">new</span> OnItemClickListener() {    <br><span class="hljs-comment line-number">3.</span>   <span class="hljs-annotation">@Override</span>    <br><span class="hljs-comment line-number">4.</span>   <span class="hljs-keyword">public</span> <span class="hljs-function">oid <span class="hljs-title">onItemClick</span><span class="hljs-params">(AdapterView&lt;?&gt; parent, View view,<span class="hljs-keyword">int</span>        position, <span class="hljs-keyword">long</span> id)</span> </span>{    <br><span class="hljs-comment line-number">5.</span>       Toast.makeText(SecondActivity.<span class="hljs-keyword">this</span>, <span class="hljs-string">"position---&gt;"</span> + position, Toast.LENGTH_SHORT).show(); <br><span class="hljs-comment line-number">6.</span>       }    <br><span class="hljs-comment line-number">7.</span>   });<br><span class="hljs-comment line-number">8.</span>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onClick</span><span class="hljs-params">(View v)</span> </span>{    <br><span class="hljs-comment line-number">9.</span>        <span class="hljs-keyword">switch</span> (v.getId()) {    <br><span class="hljs-comment line-number">10.</span>        <span class="hljs-keyword">case</span> R.id.btn:    <br><span class="hljs-comment line-number">11.</span>            Toast.makeText(SecondActivity.<span class="hljs-keyword">this</span>, <span class="hljs-string">"you clicked button!"</span>, Toast.LENGTH_SHORT).show();    <br><span class="hljs-comment line-number">12.</span>            <span class="hljs-keyword">break</span>;    <br><span class="hljs-comment line-number">13.</span>        <span class="hljs-keyword">default</span>:    <br><span class="hljs-comment line-number">14.</span>            <span class="hljs-keyword">break</span>;    <br><span class="hljs-comment line-number">15.</span>        }    <br><span class="hljs-comment line-number">16.</span>    }    <br></code></pre>
-
-<p>原本绑定Button的监听事件要么用丑陋的内部类，要么Activity实现OnClickListener，在复写的onClick方法中去根据id。而xUtils只要通过简单的一句注解就能实现监听事件的功能，而且可以实现多个控件共用一个监听方法。同时xUtils提供onClick、onItemClick、onLongClick等15种事件监听注解（<a href="http://xutilsapi.oschina.mopaas.com/" target="_blank">xutils api文档</a>）。</p>
-
-<blockquote>
-  <p>注意：在使用注解监听事件的时候，监听方法名是自定义的，但是一保证方法的访问修饰符为public，同时方法的参数法与Android原来的监听参数一致，不仅参数类型，而且保证参数的顺序。</p>
-</blockquote>
-
-</div><div id="wmd-preview-section-14" class="wmd-preview-section preview-content">
-
-<h3 id="bitmaputils的使用方法">BitmapUtils的使用方法</h3>
-
-<p>加载网络或本地bitmap的时候无需担心再遇到OOM的现象，管理bitmap的内存采用了LRU算法，同时也能避免列表滑动过程中发生图片错位等得现象。加载网络图片时，还可以配置运行线程的数量，缓存路径等。通过BitmapUtils的各种构造器，可以很方便的创建出本地缓存路径和缓存的大小，以及内存缓存的大小。</p>
-
-</div><div id="wmd-preview-section-15" class="wmd-preview-section preview-content">
-
-<pre class="prettyprint with-line-number hljs-dark"><code class="hljs aspectj"><span class="hljs-comment line-number">1.</span>BitmapUtils utils = <span class="hljs-keyword">new</span> BitmapUtils(<span class="hljs-keyword">this</span>);    <br><span class="hljs-comment line-number">2.</span>    BitmapDisplayConfig config = <span class="hljs-keyword">new</span> BitmapDisplayConfig(<span class="hljs-keyword">this</span>);    <br><span class="hljs-comment line-number">3.</span>    config.setLoadingDrawable(getResources().getDrawable(R.drawable.loading));    <br><span class="hljs-comment line-number">4.</span>    config.setLoadFailedDrawable(getResources().getDrawable(R.drawable.failed));    <br><span class="hljs-comment line-number">5.</span>    config.setImageLoadCallBack(<span class="hljs-keyword">new</span> ImageLoadCallBack() {    <br><span class="hljs-comment line-number">6.</span>        <span class="hljs-annotation">@Override</span>    <br><span class="hljs-comment line-number">7.</span>        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loadFailed</span><span class="hljs-params">(ImageView imageView, Drawable drawable)</span> </span>{    <br><span class="hljs-comment line-number">8.</span>        }    <br><span class="hljs-comment line-number">9.</span>        <span class="hljs-annotation">@Override</span>    <br><span class="hljs-comment line-number">10.</span>        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loadCompleted</span><span class="hljs-params">(ImageView imageView, Drawable drawable,    <br><span class="hljs-comment line-number">11.</span>                BitmapDisplayConfig config)</span> </span>{    <br><span class="hljs-comment line-number">12.</span>        }    <br><span class="hljs-comment line-number">13.</span>    });    <br><span class="hljs-comment line-number">14.</span>    config.setBitmapMaxWidth(<span class="hljs-number">480</span>);    <br><span class="hljs-comment line-number">15.</span>    config.setBitmapMaxHeight(<span class="hljs-number">720</span>);    <br><span class="hljs-comment line-number">16.</span>      utils.display(img, <span class="hljs-string">"http://img1.gtimg.com/news/pics/hv1/63/26/1451/94357968.jpg"</span>);    <br><span class="hljs-comment line-number">17.</span>    utils.display(img, <span class="hljs-string">"http://img1.gtimg.com/news/pics/hv1/63/26/1451/94357968.jpg"</span>, config);<br></code></pre>
-
-<p>BitmapUtils在用来加载网络图片时，可以配置加载图片尺寸的大小，加载成功和失败的回调以及加载过程中图片的配置。同时也可以选择不配置。</p>
-
-</div><div id="wmd-preview-section-16" class="wmd-preview-section preview-content">
-
-<h3 id="httputils使用方法">HttpUtils使用方法</h3>
-
-<p>解决日常工作过程中繁杂的上传下载文件以及各种Get和post请求的必备工具类，通过这个类，开源非常方便关注接口的业务，不必再再写那么冗长的代码。下面全文都围绕着四个中心点去依次展开，分别是：HttpGet请求,HttpPost请求，下载文件和上传文件。 <br>
-<strong>HttpGet请求</strong> 具体的细节下载xUtils的源码去研究研究，这里介绍的足够应用到我们的应用开发中去了。通常的HttpGet请求会把一系列的请求参数挂在请求地址的后面，拖出一节长长的尾巴，十分的惹人厌，这里可以通过像HttpPost请求的参数那样组成一个类似BasicNameValuePair的对象直接封装到请求方法中去，省去拼接url的麻烦，同时也可以设置超时时间。另外请求的方法中提供了一个回调类，这个类中有处理不同请求结果的回调方法，比如说请求过程中的回调，请求成功的回调以及请求出现错误时的回调。</p>
-
-<pre class="prettyprint with-line-number hljs-dark"><code class="hljs nimrod"><span class="hljs-comment line-number">1.</span><span class="hljs-type">RequestParams</span> params = new <span class="hljs-type">RequestParams</span>();    <br><span class="hljs-comment line-number">2.</span> params.addQueryStringParameter(<span class="hljs-string">"method"</span>, <span class="hljs-string">"info"</span>);    <br><span class="hljs-comment line-number">3.</span> params.addQueryStringParameter(<span class="hljs-string">"access_token"</span>,    <br><span class="hljs-comment line-number">4.</span>         <span class="hljs-string">"3.1042851f652496c9362b1cd77d4f849b.2592000.1377530363.3590808424-248414"</span>);    <br><span class="hljs-comment line-number">5.</span><br><span class="hljs-comment line-number">6.</span> <span class="hljs-type">HttpUtils</span> http = new <span class="hljs-type">HttpUtils</span>();    <br><span class="hljs-comment line-number">7.</span> http.configCurrentHttpGetCacheExpiry(<span class="hljs-number">1000</span> * <span class="hljs-number">10</span>);    <br><span class="hljs-comment line-number">8.</span> http.send(<span class="hljs-type">HttpRequest</span>.<span class="hljs-type">HttpMethod</span>.<span class="hljs-type">GET</span>,    <br><span class="hljs-comment line-number">9.</span>         <span class="hljs-string">"https://pcs.baidu.com/rest/2.0/pcs/quota"</span>,    <br><span class="hljs-comment line-number">10.</span>         params,    <br><span class="hljs-comment line-number">11.</span>         new <span class="hljs-type">RequestCallBack</span>&lt;<span class="hljs-type">String</span>&gt;() {    <br><span class="hljs-comment line-number">12.</span><br><span class="hljs-comment line-number">13.</span>             @<span class="hljs-type">Override</span>    <br><span class="hljs-comment line-number">14.</span>             public <span class="hljs-type">void</span> onStart() {    <br><span class="hljs-comment line-number">15.</span>                 resultText.setText(<span class="hljs-string">"conn..."</span>);    <br><span class="hljs-comment line-number">16.</span>             }    <br><span class="hljs-comment line-number">17.</span><br><span class="hljs-comment line-number">18.</span>             @<span class="hljs-type">Override</span>    <br><span class="hljs-comment line-number">19.</span>             public <span class="hljs-type">void</span> onLoading(long total, long current) {    <br><span class="hljs-comment line-number">20.</span>                 resultText.setText(current + <span class="hljs-string">"/"</span> + total);    <br><span class="hljs-comment line-number">21.</span>             }    <br><span class="hljs-comment line-number">22.</span><br><span class="hljs-comment line-number">23.</span>             @<span class="hljs-type">Override</span>    <br><span class="hljs-comment line-number">24.</span>             public <span class="hljs-type">void</span> onSuccess(<span class="hljs-type">String</span> <span class="hljs-literal">result</span>) {    <br><span class="hljs-comment line-number">25.</span>                 resultText.setText(<span class="hljs-string">"response:"</span> + <span class="hljs-literal">result</span>);    <br><span class="hljs-comment line-number">26.</span>             }    <br><span class="hljs-comment line-number">27.</span>             @<span class="hljs-type">Override</span>    <br><span class="hljs-comment line-number">28.</span>             public <span class="hljs-type">void</span> onFailure(<span class="hljs-type">HttpException</span> error, <span class="hljs-type">String</span> msg) {    <br><span class="hljs-comment line-number">29.</span>                 resultText.setText(msg);    <br><span class="hljs-comment line-number">30.</span>             }    <br><span class="hljs-comment line-number">31.</span>         });    <br></code></pre>
-
-<p><strong>HttpPost请求</strong> </p>
-
-<pre class="prettyprint with-line-number hljs-dark"><code class="hljs nimrod"><span class="hljs-comment line-number">1.</span><span class="hljs-type">RequestParams</span> params = new <span class="hljs-type">RequestParams</span>();    <br><span class="hljs-comment line-number">2.</span>   params.addQueryStringParameter(<span class="hljs-string">"method"</span>, <span class="hljs-string">"mkdir"</span>);    <br><span class="hljs-comment line-number">3.</span>   params.addQueryStringParameter(<span class="hljs-string">"access_token"</span>, <span class="hljs-string">"3.1042851f652496c9362b1cd77d4f849b.2592000.1377530363.3590808424-248414"</span>);    <br><span class="hljs-comment line-number">4.</span>   params.addBodyParameter(<span class="hljs-string">"path"</span>, <span class="hljs-string">"/apps/测试应用/test文件夹"</span>);    <br><span class="hljs-comment line-number">5.</span><br><span class="hljs-comment line-number">6.</span>   <span class="hljs-type">HttpUtils</span> http = new <span class="hljs-type">HttpUtils</span>();    <br><span class="hljs-comment line-number">7.</span>   http.send(<span class="hljs-type">HttpRequest</span>.<span class="hljs-type">HttpMethod</span>.<span class="hljs-type">POST</span>,    <br><span class="hljs-comment line-number">8.</span>           <span class="hljs-string">"https://pcs.baidu.com/rest/2.0/pcs/file"</span>,    <br><span class="hljs-comment line-number">9.</span>           params,    <br><span class="hljs-comment line-number">10.</span>           new <span class="hljs-type">RequestCallBack</span>&lt;<span class="hljs-type">String</span>&gt;() {    <br><span class="hljs-comment line-number">11.</span><br><span class="hljs-comment line-number">12.</span>               @<span class="hljs-type">Override</span>    <br><span class="hljs-comment line-number">13.</span>               public <span class="hljs-type">void</span> onStart() {    <br><span class="hljs-comment line-number">14.</span>                   resultText.setText(<span class="hljs-string">"conn..."</span>);    <br><span class="hljs-comment line-number">15.</span>               }    <br><span class="hljs-comment line-number">16.</span><br><span class="hljs-comment line-number">17.</span>               @<span class="hljs-type">Override</span>    <br><span class="hljs-comment line-number">18.</span>               public <span class="hljs-type">void</span> onLoading(long total, long current) {    <br><span class="hljs-comment line-number">19.</span>                   resultText.setText(current + <span class="hljs-string">"/"</span> + total);    <br><span class="hljs-comment line-number">20.</span>               }    <br><span class="hljs-comment line-number">21.</span><br><span class="hljs-comment line-number">22.</span>               @<span class="hljs-type">Override</span>    <br><span class="hljs-comment line-number">23.</span>               public <span class="hljs-type">void</span> onSuccess(<span class="hljs-type">String</span> <span class="hljs-literal">result</span>) {    <br><span class="hljs-comment line-number">24.</span>                   resultText.setText(<span class="hljs-string">"upload response:"</span> + <span class="hljs-literal">result</span>);    <br><span class="hljs-comment line-number">25.</span>               }    <br><span class="hljs-comment line-number">26.</span><br><span class="hljs-comment line-number">27.</span><br><span class="hljs-comment line-number">28.</span>               @<span class="hljs-type">Override</span>    <br><span class="hljs-comment line-number">29.</span>               public <span class="hljs-type">void</span> onFailure(<span class="hljs-type">HttpException</span> error, <span class="hljs-type">String</span> msg) {    <br><span class="hljs-comment line-number">30.</span>                   resultText.setText(msg);    <br><span class="hljs-comment line-number">31.</span>               }    <br><span class="hljs-comment line-number">32.</span>           });   <br></code></pre>
-
-<p><strong>HttpUtils文件下载</strong></p>
-
-<pre class="prettyprint with-line-number hljs-dark"><code class="hljs aspectj"><span class="hljs-comment line-number">1.</span>HttpHandler  <span class="hljs-keyword">handler</span> = http.download(    <br><span class="hljs-comment line-number">2.</span>            downloadAddrEdit.getText().toString(),    <br><span class="hljs-comment line-number">3.</span>            <span class="hljs-string">"/sdcard/fileexplorer.apk"</span>,    <br><span class="hljs-comment line-number">4.</span>            <span class="hljs-keyword">true</span>, <span class="hljs-comment">// 如果目标文件存在，接着未完成的部分继续下载。    </span><br><span class="hljs-comment line-number">5.</span>            <span class="hljs-keyword">true</span>, <span class="hljs-comment">// 如果从请求返回信息中获取到文件名，下载完成后自动重命名。    </span><br><span class="hljs-comment line-number">6.</span>            <span class="hljs-keyword">new</span> RequestCallBack&lt;File&gt;() {     <br><span class="hljs-comment line-number">7.</span><br><span class="hljs-comment line-number">8.</span>                <span class="hljs-annotation">@Override</span>    <br><span class="hljs-comment line-number">9.</span>                <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onStart</span><span class="hljs-params">()</span> </span>{    <br><span class="hljs-comment line-number">10.</span>                    resultText.setText(<span class="hljs-string">"conn..."</span>);    <br><span class="hljs-comment line-number">11.</span>                }    <br><span class="hljs-comment line-number">12.</span><br><span class="hljs-comment line-number">13.</span>                <span class="hljs-annotation">@Override</span>    <br><span class="hljs-comment line-number">14.</span>                <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onLoading</span><span class="hljs-params">(<span class="hljs-keyword">long</span> total, <span class="hljs-keyword">long</span> current)</span> </span>{    <br><span class="hljs-comment line-number">15.</span>                    resultText.setText(current + <span class="hljs-string">"/"</span> + total);    <br><span class="hljs-comment line-number">16.</span>                }    <br><span class="hljs-comment line-number">17.</span><br><span class="hljs-comment line-number">18.</span>                <span class="hljs-annotation">@Override</span>    <br><span class="hljs-comment line-number">19.</span>                <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onSuccess</span><span class="hljs-params">(File result)</span> </span>{    <br><span class="hljs-comment line-number">20.</span>                    resultText.setText(<span class="hljs-string">"downloaded:"</span> + result.getPath());    <br><span class="hljs-comment line-number">21.</span>                }    <br><span class="hljs-comment line-number">22.</span><br><span class="hljs-comment line-number">23.</span>                <span class="hljs-annotation">@Override</span>    <br><span class="hljs-comment line-number">24.</span>                <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onFailure</span><span class="hljs-params">(HttpException <span class="hljs-keyword">error</span>, String msg)</span> </span>{    <br><span class="hljs-comment line-number">25.</span>                    resultText.setText(<span class="hljs-keyword">error</span>.getExceptionCode() + <span class="hljs-string">":"</span> + msg);    <br><span class="hljs-comment line-number">26.</span>                }    <br><span class="hljs-comment line-number">27.</span>            });  <br></code></pre>
-
-<blockquote>
-  <p>注意： <br>
-  下载工程中如果需要暂停下载，只需要一行代码来实现：mHandler.stop()，如果设置断点下载的话，会自动从上次下载的断点出继续下载。 <br>
-   <strong>HttpUtils文件上传</strong> <br>
-   用户上传头像，再比如网盘应用需要把本地文件上传到云端等等。同时HttpUtils也同时为开发者提供了上传过程中和上传结果的各个回调接口。使用HttpUtils上传文件的时候，只要仿照下面的代码去码代码就快可以基本满足业务的需要了。</p>
-</blockquote>
-
-<pre class="prettyprint with-line-number hljs-dark"><code class="hljs cs"><span class="hljs-comment line-number">1.</span>RequestParams <span class="hljs-keyword">params</span> = <span class="hljs-keyword">new</span> RequestParams();    <br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">params</span>.addQueryStringParameter(<span class="hljs-string">"method"</span>, <span class="hljs-string">"upload"</span>);    <br><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">params</span>.addQueryStringParameter(<span class="hljs-string">"path"</span>, <span class="hljs-string">"/apps/测试应用/test.zip"</span>);    <br><span class="hljs-comment line-number">4.</span>    <span class="hljs-comment">// 请在百度的开放access_tokenapi测试页面找到自己的access_token    </span><br><span class="hljs-comment line-number">5.</span>    <span class="hljs-keyword">params</span>.addQueryStringParameter(<span class="hljs-string">"access_token"</span>, <span class="hljs-string">"3.1042851f652496c9362b1cd77d4f849b.2592000.1377530363.3590808424-248414"</span>);    <br><span class="hljs-comment line-number">6.</span>    <span class="hljs-keyword">params</span>.addBodyParameter(<span class="hljs-string">"file"</span>, <span class="hljs-keyword">new</span> File(<span class="hljs-string">"/sdcard/test.zip"</span>));    <br><span class="hljs-comment line-number">7.</span><br><span class="hljs-comment line-number">8.</span>    HttpUtils http = <span class="hljs-keyword">new</span> HttpUtils();    <br><span class="hljs-comment line-number">9.</span>    http.send(HttpRequest.HttpMethod.POST,    <br><span class="hljs-comment line-number">10.</span>            <span class="hljs-string">"https://pcs.baidu.com/rest/2.0/pcs/file"</span>,    <br><span class="hljs-comment line-number">11.</span>            <span class="hljs-keyword">params</span>,    <br><span class="hljs-comment line-number">12.</span>            <span class="hljs-keyword">new</span> RequestCallBack&lt;String&gt;() {    <br><span class="hljs-comment line-number">13.</span><br><span class="hljs-comment line-number">14.</span>                @<span class="hljs-function">Override    <br><span class="hljs-comment line-number">15.</span>                <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onStart</span>(<span class="hljs-params"></span>) </span>{    <br><span class="hljs-comment line-number">16.</span>                    resultText.setText(<span class="hljs-string">"conn..."</span>);    <br><span class="hljs-comment line-number">17.</span>                }    <br><span class="hljs-comment line-number">18.</span><br><span class="hljs-comment line-number">19.</span>                @<span class="hljs-function">Override    <br><span class="hljs-comment line-number">20.</span>                <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onLoading</span>(<span class="hljs-params"><span class="hljs-keyword">long</span> total, <span class="hljs-keyword">long</span> current</span>) </span>{    <br><span class="hljs-comment line-number">21.</span>                    resultText.setText(current + <span class="hljs-string">"/"</span> + total);    <br><span class="hljs-comment line-number">22.</span>                }    <br><span class="hljs-comment line-number">23.</span><br><span class="hljs-comment line-number">24.</span>                @<span class="hljs-function">Override    <br><span class="hljs-comment line-number">25.</span>                <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onSuccess</span>(<span class="hljs-params">String result</span>) </span>{    <br><span class="hljs-comment line-number">26.</span>                    resultText.setText(<span class="hljs-string">"upload response:"</span> + result);    <br><span class="hljs-comment line-number">27.</span>                }    <br><span class="hljs-comment line-number">28.</span><br><span class="hljs-comment line-number">29.</span><br><span class="hljs-comment line-number">30.</span>                @<span class="hljs-function">Override    <br><span class="hljs-comment line-number">31.</span>                <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onFailure</span>(<span class="hljs-params">HttpException error, String msg</span>) </span>{    <br><span class="hljs-comment line-number">32.</span>                    resultText.setText(msg);    <br><span class="hljs-comment line-number">33.</span>                }    <br><span class="hljs-comment line-number">34.</span>            });    <br></code></pre>
-
-</div><div id="wmd-preview-section-17" class="wmd-preview-section preview-content">
-
-<h3 id="dbutils使用方法">DbUtils使用方法</h3>
-
-<p>操纵数据库的工具类，离不开最根本的CRUD，即创建，查询，更新和删除。在Android里面如果要存储一个对象，我们需要创建一个SQLiteOpenHelper，然后还得创建一张对应对象各个属性的表，还得继续把我们的对象转换ContentValues，进而去存储。真心是麻烦的不能再麻烦了，我们现在介绍的DbUtils就能让你轻松解脱麻绳一样的代码。DbUtils在进行save操作的时候，会根据java反射，反射出对象的各个字段，然后去查询数据库中是否存在这个对象类型对应的表，如果表已经存在，直接进行插入操作；如果不存在，就先动态的创建的一张对应我们对象的表，再进行插入处理。</p>
-
-<blockquote>
-  <p>注意： <br>
-  并不是所有的实体对象都快可以通过这种方式去存储，一定要保证对象的类型中有int类型的<code>id</code>或者<code>_id</code>的属性，这就对应数据库表中的主键字段。如果类型中没有id字段，可以通过<code>@Id</code>注解去指定一个<code>int</code>类型的字段作为主键。如果表中的又字段不想被存储在数据库中，也可以通过<code>@Transient</code>去实现忽略。如果直接存储一个对象的列表，这样也是被允许的，达到批量存储的目的。</p>
-</blockquote>
-
-<p>下面演示的是更新Student对应的表中的第一条记录的age这个字段。这个比较简单，就直接上代码看吧。</p>
-
-<pre class="prettyprint with-line-number hljs-dark"><code class="hljs stata"><span class="hljs-comment line-number">1.</span>@OnClick(R.id.<span class="hljs-keyword">update</span>)    <br><span class="hljs-comment line-number">2.</span>public void <span class="hljs-keyword">update</span>(<span class="hljs-keyword">View</span> v){    <br><span class="hljs-comment line-number">3.</span>    try {    <br><span class="hljs-comment line-number">4.</span>        <span class="hljs-keyword">List</span>&lt;Student&gt; stus = dbUtils.findAll(Selector.from(Student.<span class="hljs-keyword">class</span>));    <br><span class="hljs-comment line-number">5.</span>        Student stu = stus.<span class="hljs-literal">get</span>(0);    <br><span class="hljs-comment line-number">6.</span>        stu.setAge(20);    <br><span class="hljs-comment line-number">7.</span>        dbUtils.<span class="hljs-keyword">update</span>(stu);    <br><span class="hljs-comment line-number">8.</span>    } catch (DbException <span class="hljs-keyword">e</span>) {    <br><span class="hljs-comment line-number">9.</span>        <span class="hljs-keyword">e</span>.printStackTrace();    <br><span class="hljs-comment line-number">10.</span>    }    <br><span class="hljs-comment line-number">11.</span>} <br></code></pre>
-
-<p>一个实体对象，一组实体对象，根据条件删除，删除表，删除整个数据库，这些操作都可以通过一句简单的代码来实现 </p>
-
-<pre class="prettyprint with-line-number hljs-dark"><code class="hljs cpp"><span class="hljs-comment line-number">1.</span>@OnClick(R.id.<span class="hljs-keyword">delete</span>)    <br><span class="hljs-comment line-number">2.</span><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">delete</span><span class="hljs-params">(View v)</span></span>{    <br><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">try</span> {    <br><span class="hljs-comment line-number">4.</span>        List&lt;Student&gt; stus = dbUtils.findAll(Selector.from(Student.<span class="hljs-keyword">class</span>));    <br><span class="hljs-comment line-number">5.</span>        dbUtils.<span class="hljs-keyword">delete</span>(stus.get(<span class="hljs-number">0</span>));    <br><span class="hljs-comment line-number">6.</span>        dbUtils.deleteAll(stus);    <br><span class="hljs-comment line-number">7.</span>        dbUtils.deleteById(Student.<span class="hljs-keyword">class</span>, WhereBuilder.b(<span class="hljs-string">"age"</span>, <span class="hljs-string">"=="</span>, <span class="hljs-number">20</span>));    <br><span class="hljs-comment line-number">8.</span>        dbUtils.dropTable(Student.<span class="hljs-keyword">class</span>);    <br><span class="hljs-comment line-number">9.</span>        dbUtils.dropDb();    <br><span class="hljs-comment line-number">10.</span>    } <span class="hljs-keyword">catch</span> (DbException e) {    <br><span class="hljs-comment line-number">11.</span>        e.printStackTrace();    <br><span class="hljs-comment line-number">12.</span>    }    <br><span class="hljs-comment line-number">13.</span>}<br></code></pre></div><div id="wmd-preview-section-footnotes" class="preview-content"></div></div></body></html>
       
     </div>
     
